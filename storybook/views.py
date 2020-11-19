@@ -10,13 +10,17 @@ from storybook.forms import StoryForm
 class StoryListView(ListView):
     model = Story
     paginate_by = 5
-    ordering = ['-created_at']
+    ordering = ['-id']
 
 
 class StoryCreate(CreateView):
     model = Story
     form_class = StoryForm
     template_name = 'storybook/story_form.html'
+
+    #def form_valid(self, form):
+    #    form.instance.user = self.request.user
+    #    return super(StoryCreate, self).form_valid(form)
     # Don't use fields when add 'form_class'
     # fields = ['title', 'text']
 
