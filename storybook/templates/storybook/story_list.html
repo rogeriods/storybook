@@ -1,0 +1,50 @@
+{% extends 'storybook/base_layout.html' %}
+
+{% block content %}
+
+<h2 class="mt-3">Dashboard</h2>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Created At</th>
+      <th>Title</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for story in object_list %}
+    <tr>
+      <td>{{ story.created_at }}</td>
+      <td>{{ story.title }}</td>
+      <td><a href="{% url 'story-edit' story.id %}"><i class="fas fa-pencil-alt"></i> edit</a></td>
+      <td>
+        <a href="{% url 'story-delete' story.id %}" class="text-danger">
+          <i class="fas fa-trash-alt"></i> delete
+        </a>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<div class="pagination">
+  <span class="step-links">
+    {% if page_obj.has_previous %}
+    <a href="?page=1">&laquo; first <i class="fas fa-step-backward"></i></a>
+    <a href="?page={{ page_obj.previous_page_number }}"><i class="fas fa-caret-left"></i> previous</a>
+    {% endif %}
+
+    <span class="current">
+      Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+    </span>
+
+    {% if page_obj.has_next %}
+    <a href="?page={{ page_obj.next_page_number }}"><i class="fas fa-trash-alt"></i> next</a>
+    <a href="?page={{ page_obj.paginator.num_pages }}"><i class="fas fa-step-forward"></i> last &raquo;</a>
+    {% endif %}
+  </span>
+</div>
+
+{% endblock %}
